@@ -1,0 +1,14 @@
+{
+  "name": "funjector",
+  "version": "1.0.0",
+  "description": "dependency injection for functional paradigm",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "author": "Tushar Mathur <tusharmath@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "ava": "^0.13.0"
+  }
+}
