@@ -10,10 +10,16 @@
   "license": "ISC",
   "devDependencies": {
     "ava": "^0.13.0",
+    "cz-conventional-changelog": "^1.1.5",
     "semantic-release": "^4.3.5"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/tusharmath/funjector.git"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
