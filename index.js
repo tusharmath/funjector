@@ -2,7 +2,7 @@ const e = exports
 const toArray = (x, i) => Array.prototype.slice.call(x, i)
 const FUNJECTOR_KEY = Symbol.for('funjector')
 e.get = (func) => {
-  if (typeof func !== 'function' || ! func[FUNJECTOR_KEY]) {
+  if (typeof func !== 'function' || !func[FUNJECTOR_KEY]) {
     return func
   }
 
@@ -16,4 +16,9 @@ e.get = (func) => {
 e.inject = function (func) {
   func[FUNJECTOR_KEY] = toArray(arguments, 1)
   return func
+}
+
+e.call = function (func) {
+  const args = toArray(arguments, 1)
+  return e.get(func).apply(this, args)
 }
