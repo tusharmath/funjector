@@ -1,14 +1,19 @@
 {
   "name": "funjector",
-  "version": "1.0.0",
   "description": "dependency injection for functional paradigm",
   "main": "index.js",
   "scripts": {
-    "test": "ava"
+    "test": "ava",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "author": "Tushar Mathur <tusharmath@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "ava": "^0.13.0"
+    "ava": "^0.13.0",
+    "semantic-release": "^4.3.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tusharmath/funjector.git"
   }
 }
