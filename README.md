@@ -1,5 +1,13 @@
 # Funjector
 
+[![Build Status][travis-svg]][travis]
+[![npm][npm-svg]][npm]
+
+[travis-svg]:           https://travis-ci.org/tusharmath/funjector.svg?branch=master
+[travis]:               https://travis-ci.org/tusharmath/funjector
+[npm-svg]:              https://img.shields.io/npm/v/funjector.svg
+[npm]:                  https://www.npmjs.com/package/funjector
+
 The purpose of this module was to create a simple dependency injection module for functions. This makes writing unit tests a breeze.
 
 # Installation
