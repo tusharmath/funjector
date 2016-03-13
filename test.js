@@ -1,30 +1,30 @@
 import test from 'ava'
-import { inject, get } from './index'
+import { partialize, call } from './index'
 
-test('no inject', t => {
+test('no partialize', t => {
   const mul = (base, a, b) => a * b + base
-  t.is(get(mul), mul)
+  t.is(call(mul, 10, 2, 3), 16)
 })
 
-test('non functions', t => {
-  const mul = {}
-  t.is(get(mul), mul)
+test('non functional dependency', t => {
+  const mul = partialize((a) => a * 10, 2)
+  t.is(call(mul), 20)
 })
 
-test('inject', t => {
-  const a = inject(() => 100, 1000)
+test('partialize', t => {
+  const a = partialize(() => 100, 1000)
   t.same(a[Symbol.for('funjector')], [1000])
 })
 
 test('di:funcs', t => {
   const a = x => x * 10
-  const b = inject((x, y, z) => x(y + z), a)
-  t.is(get(b)(1, 2), 30)
+  const b = partialize((x, y, z) => x(y + z), a)
+  t.is(call(b, 1, 2), 30)
 })
 
 test('di', t => {
   const a = x => x * 10
-  const b = inject((x, y, z) => x(y + z), a)
-  const d = inject((x, y) => x(y, 1000), b)
-  t.is(get(d)(1), 10010)
+  const b = partialize((x, y, z) => x(y + z), a)
+  const d = partialize((x, y) => x(y, 1000), b)
+  t.is(call(d, 1), 10010)
 })

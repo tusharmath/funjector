@@ -74,8 +74,9 @@ As you can, though A only needs three params viz — B, x, y I have to pass C be
 
 ### With funjector
 
+
 ```javascript
-import {inject, get} from 'funjector'
+import {partialize, call} from 'funjector'
 
 function C (x) {
   return x - 1
@@ -84,13 +85,13 @@ function C (x) {
 function B (C, x) {
   return C(x * 100)
 }
-inject(B, C) // Binds the function B with C as the first param
+partialize(B, C) // Binds the function B with C as the first param
 
 function A (B, x, y) {
   return B(x + y)
 }
-inject(A, B) // Binds the function A with B as the first param
+partialize(A, B) // Binds the function A with B as the first param
 
-get(A)(10, 20)
+call(A, 10, 20) // Calls the partialized version of the function
 
 ```
