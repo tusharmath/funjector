@@ -1,30 +1,29 @@
 import test from 'ava'
-import { partialize, call } from './index'
+import { partial, call, callWith } from './index'
 
-test('no partialize', t => {
-  const mul = (base, a, b) => a * b + base
-  t.is(call(mul, 10, 2, 3), 16)
+test('partialize:args', t => {
+  const a = partial((x, y) => x * y, 10)
+  t.same(a(3), 30)
+  t.same(a(4), 40)
 })
 
-test('non functional dependency', t => {
-  const mul = partialize((a) => a * 10, 2)
-  t.is(call(mul), 20)
+test('partial:this', t => {
+  const a = partial(function (b, c) {
+    return this * b + c
+  }, 10)
+  t.same(a.call(3, 1), 31)
 })
 
-test('partialize', t => {
-  const a = partialize(() => 100, 1000)
-  t.same(a[Symbol.for('funjector')], [1000])
+test('call', t => {
+  const a = partial((x, y) => x * y, 10)
+  t.same(call(a, 9, 3), 27)
+  t.same(call(a, 9, 4), 36)
 })
 
-test('di:funcs', t => {
-  const a = x => x * 10
-  const b = partialize((x, y, z) => x(y + z), a)
-  t.is(call(b, 1, 2), 30)
-})
-
-test('di', t => {
-  const a = x => x * 10
-  const b = partialize((x, y, z) => x(y + z), a)
-  const d = partialize((x, y) => x(y, 1000), b)
-  t.is(call(d, 1), 10010)
+test('callWith', t => {
+  const a = partial(function (b, c) {
+    return this * b + c
+  }, 10)
+  t.same(callWith(a, 2, 10, 3), 23)
+  t.same(callWith(a, 3, 10, 4), 34)
 })
