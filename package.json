@@ -21,5 +21,15 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  }
+  },
+  "keywords":[
+    "dependency",
+    "injection",
+    "functional",
+    "programming",
+    "partial",
+    "unit",
+    "testing",
+    "mock"
+  ]
 }
