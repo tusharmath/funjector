@@ -1,24 +1,29 @@
 const e = exports
 const toArray = (x, i) => Array.prototype.slice.call(x, i)
 const FUNJECTOR_KEY = Symbol.for('funjector')
-const get = (func) => {
-  if (typeof func !== 'function' || !func[FUNJECTOR_KEY]) {
-    return func
-  }
+const PLACEHOLDER_KEY = Symbol.for('funjectorPlaceholder')
 
-  const injections = func[FUNJECTOR_KEY].map(get)
-  return function () {
-    const args = toArray(arguments)
-    return func.apply(this, injections.concat(args))
-  }
-}
+e.SKIP = PLACEHOLDER_KEY
 
-e.partialize = function (func) {
-  func[FUNJECTOR_KEY] = toArray(arguments, 1)
-  return func
+e.partial = function (func) {
+  const args = toArray(arguments, 1)
+  const partialized = function () {
+    const _args = toArray(arguments)
+    const params = args
+      .map(x => x === PLACEHOLDER_KEY ? _args.shift() : x)
+      .concat(_args)
+    return (func.apply(this, params))
+  }
+  partialized[FUNJECTOR_KEY] = func
+  return partialized
 }
 
 e.call = function (func) {
   const args = toArray(arguments, 1)
-  return get(func).apply(this, args)
+  return (func[FUNJECTOR_KEY] || func).apply(this, args)
+}
+
+e.callWith = function (func, ctx) {
+  const args = toArray(arguments, 2)
+  return e.call.apply(ctx, [func].concat(args))
 }
