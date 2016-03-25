@@ -20,7 +20,7 @@ e.partial = function (func) {
 
 e.call = function (func) {
   const args = toArray(arguments, 1)
-  return func[FUNJECTOR_KEY].apply(this, args)
+  return (func[FUNJECTOR_KEY] || func).apply(this, args)
 }
 
 e.callWith = function (func, ctx) {

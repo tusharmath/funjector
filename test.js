@@ -30,6 +30,12 @@ test('call', t => {
   t.same(call(a, 9, 4), 36)
 })
 
+test('call:unpartialed', t => {
+  const a = (x, y) => x * y
+  t.same(call(a, 10, 3), 30)
+  t.same(call(a, 10, 4), 40)
+})
+
 test('callWith', t => {
   const a = partial(function (b, c) {
     return this * b + c
