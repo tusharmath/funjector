@@ -1,5 +1,5 @@
 import test from 'ava'
-import { partial, call, callWith, skip } from './index'
+import { partial, call, callWith, SKIP as skip } from './index'
 
 test('partial:args', t => {
   const a = partial((x, y) => x * y, 10)
