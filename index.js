@@ -3,7 +3,7 @@ const toArray = (x, i) => Array.prototype.slice.call(x, i)
 const FUNJECTOR_KEY = Symbol.for('funjector')
 const PLACEHOLDER_KEY = Symbol.for('funjectorPlaceholder')
 
-e.skip = PLACEHOLDER_KEY
+e.SKIP = PLACEHOLDER_KEY
 
 e.partial = function (func) {
   const args = toArray(arguments, 1)
@@ -25,5 +25,5 @@ e.call = function (func) {
 
 e.callWith = function (func, ctx) {
   const args = toArray(arguments, 2)
-  return func[FUNJECTOR_KEY].apply(ctx, args)
+  return e.call.apply(ctx, [func].concat(args))
 }
