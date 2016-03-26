@@ -77,7 +77,7 @@ As you can, though A only needs three params viz — B, x, y I have to pass C be
 
 ```javascript
 
-import {partial, call} from 'funjector'
+import {partial, orig} from 'funjector'
 
 function C (x) {
   return x - 1
@@ -94,7 +94,8 @@ const A = partial(function (B, x, y) {
 }, B)
 
 A(10, 20) // Calls the partialized version of the function
-call(A, i => i + 1, 10, 20) // Calls the original function A with a custom implementation of B
+
+orig(A)(i => i + 1, 10, 20) // Calls the original version of function A with a custom implementation of B
 ```
 
 ### API
@@ -107,6 +108,16 @@ import {partial} from 'funjector'
 const a = partial((x, y) => x * y, 10)
 a(3) // OUTPUTS: 30
 a(4) // OUTPUTS: 40
+```
+
+#### funjector.orig(func)
+Returns the original version of the partialized function.
+
+```javascript
+import {orig, partial} from 'funjector'
+const mul = (x, y) => x * y
+const mul10 = partial(mul, 10)
+orig(mul10) === mul // OUTPUTS: true
 ```
 
 
