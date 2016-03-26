@@ -75,34 +75,52 @@ As you can see, though `A` only needs three params viz — `B`, `x`, `y` I end u
 ### With funjector
 We will declaratively bind `A` with `B` as the first argument and similarly `B` with `C` as the first argument. So we won't need to pass `C` where ever we are using `B`. Technically we are implementing *dependency injection* for functions.
 
+**index.js**
 ```javascript
 import {partial} from 'funjector'
 
-function C (x) {
+export function C (x) {
   return x - 1
 }
 
-const B = partial(function (C, x) {
+export const B = partial(function (C, x) {
   return C(x * 100)
 }, C) // Binds the function B with C as the first param
 
-const A = partial(function (B, x, y) {
+export const A = partial(function (B, x, y) {
   return B(x + y)
 }, B) // Binds the function A with B as the first param
-
-A(10, 20) // Calls the partialized version of the function
 ```
+
+**test-integration.js**
+```javascript
+import test from 'ava'
+import {A} from './index.js'
+
+test('with original B', t => {
+    // Calls the partialized version of the function
+    t.is(A(10, 20), 2999)
+})
+
+```
+
+
+
 So we can create partial functions in a declarative manner but most importantly we can now control when to use that partial function vs its original version. This granular control helps in writing better tests and injecting dependencies on the fly. For example to call `A` with a custom implementation of `B` we could do this -
 
+**test-unit.js**
 ```javascript
-
+import test from 'ava'
 import {orig} from 'funjector'
+import {A} from './index.js'
 
-// Calls the original version of function A with a custom implementation of B
-orig(A)(i => i + 1, 10, 20)
+test('with mocked B', t => {
+    // Calls the original version of function A with a custom implementation of B
+    t.is(orig(A)(i => i + 1, 10, 20), 31)
+})
 ```
-
 Here when I use `orig(A)` I get the original *unpartialized* version of the function, which I can call with a custom implementation of `B` which is `i => i + 1`.
+
 
 ### API
 
