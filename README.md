@@ -99,7 +99,7 @@ call(A, i => i + 1, 10, 20) // Calls the original function A with a custom imple
 
 ### API
 
-#### partial(func, *args)
+#### funjector.partial(func, \*args)
 Creates a function that calls *func* with *args* arguments prepended to those provided to the new function.
 
 ```javascript
@@ -110,8 +110,8 @@ a(4) // OUTPUTS: 40
 ```
 
 
-#### call(func, *args)
-calls a partialized function returned by *partial()*, with the passed *args* ignoring all the arguments that were passed as the bindings.
+#### funjector.call(func, \*args)
+calls the original version of a partialized function that was returned by *partial()*
 
 ```javascript
 import {call, partial} from 'funjector'
@@ -120,11 +120,11 @@ call(a, 9, 3) // OUTPUTS: 27 and not 30
 call(a, 9, 4) // OUTPUTS: 36 and not 40
 ```
 
-#### callWith(func, context, *args)
+#### funjector.callWith(func, context, \*args)
 exactly like *call()* except that the second param is used as the context with which the function *func* is invoked.
 
-#### SKIP
-a placeholder that can be used with the function *partial()* to selectively control the order of arguments that are being passed the function.
+#### funjector.SKIP
+a placeholder that can be used with the function *partial()* to selectively control the order of arguments that are being passed to the function.
 
 ```javascript
 import {SKIP, partial} from 'funjector'
