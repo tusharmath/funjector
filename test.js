@@ -1,5 +1,5 @@
 import test from 'ava'
-import { partial, call, callWith, SKIP as skip } from './index'
+import { partial, call, callWith, SKIP as skip, orig } from './index'
 
 test('partial:args', t => {
   const a = partial((x, y) => x * y, 10)
@@ -42,4 +42,12 @@ test('callWith', t => {
   }, 10)
   t.same(callWith(a, 2, 10, 3), 23)
   t.same(callWith(a, 3, 10, 4), 34)
+})
+
+test('orig', t => {
+  const func = function (b, c) {
+    return this * b + c
+  }
+  const a = partial(func, 10)
+  t.is(orig(a), func)
 })

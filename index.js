@@ -18,9 +18,13 @@ e.partial = function (func) {
   return partialized
 }
 
+e.orig = function (func) {
+  return (func[FUNJECTOR_KEY] || func)
+}
+
 e.call = function (func) {
   const args = toArray(arguments, 1)
-  return (func[FUNJECTOR_KEY] || func).apply(this, args)
+  return e.orig(func).apply(this, args)
 }
 
 e.callWith = function (func, ctx) {
