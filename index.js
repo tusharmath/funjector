@@ -14,12 +14,12 @@ e.partial = function (func) {
       .concat(_args)
     return (func.apply(this, params))
   }
-  partialized[FUNJECTOR_KEY] = func
+  partialized[ FUNJECTOR_KEY ] = func
   return partialized
 }
 
 e.orig = function (func) {
-  return (func[FUNJECTOR_KEY] || func)
+  return (func[ FUNJECTOR_KEY ] || func)
 }
 
 e.call = function (func) {
@@ -29,5 +29,5 @@ e.call = function (func) {
 
 e.callWith = function (func, ctx) {
   const args = toArray(arguments, 2)
-  return e.call.apply(ctx, [func].concat(args))
+  return e.call.apply(ctx, [ func ].concat(args))
 }
