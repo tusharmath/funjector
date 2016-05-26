@@ -9,7 +9,7 @@
   "author": "Tushar Mathur <tusharmath@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "ava": "^0.14.0",
+    "ava": "^0.15.1",
     "cz-conventional-changelog": "^1.1.5",
     "semantic-release": "^4.3.5"
   },
