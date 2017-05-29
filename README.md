@@ -1,5 +1,7 @@
 # Funjector
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/tusharmath/funjector.svg)](https://greenkeeper.io/)
+
 [![Build Status][travis-svg]][travis]
 [![npm][npm-svg]][npm]
 
